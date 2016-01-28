@@ -17,3 +17,41 @@
 @import "neat";
 
 @import "map";
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  @include outer-container(100%);
+  @include background( radial-gradient(white, #e0e0d1) );
+  @include padding(1em);
+}
+
+header {
+  height: 6.8em;
+  margin: 0.3em auto;
+  #logo {
+    @include span-columns(5);
+  }
+  #nav {
+    @include span-columns(7);
+    ul {
+      top: -50%;
+      list-style-type: none;
+    }
+    li {
+      position: relative;
+      padding: 0.5em;
+      top: -50%;
+      float: right;
+    }
+    a {
+      font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
+      font-size: 120%;
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
