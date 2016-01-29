@@ -17,9 +17,12 @@
 @import "neat";
 
 @import "map";
+@import "about";
 
 html {
   height: 100%;
+  font-family: Tw Cen Mt, Gill Sans, Century Gothic, sans-serif;
+  font-size: 18px;
 }
 
 body {
@@ -53,10 +56,16 @@ header {
       float: right;
     }
     a {
-      font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
-      font-size: 120%;
+      font-size: 1.2em;
       text-decoration: none;
       color: black;
     }
   }
+}
+
+#content {
+  padding-top: 8em;
+  @include span-columns(10);
+  @include shift(1);
+  line-height: 1.2em;
 }
