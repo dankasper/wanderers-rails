@@ -1,4 +1,5 @@
 require 'dragonfly'
+require 'dragonfly/s3_data_store'
 
 # Configure
 Dragonfly.app.configure do
@@ -8,9 +9,10 @@ Dragonfly.app.configure do
 
   url_format "/media/:job/:name"
 
-  datastore :file,
-    root_path: Rails.root.join('public/system/dragonfly', Rails.env),
-    server_root: Rails.root.join('public')
+  datastore :s3,
+    bucket_name: 'wanderers-content',
+    access_key_id: Rails.application.secrets.aws_access_key_id,
+    secret_access_key: Rails.application.secrets.aws_secret_access_key
 end
 
 # Logger
