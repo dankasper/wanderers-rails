@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_filter :require_authentication, except: [:index, :show]
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
 
   # GET /photos
