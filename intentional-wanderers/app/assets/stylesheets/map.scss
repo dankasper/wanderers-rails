@@ -6,3 +6,14 @@
   width: 100%;
   z-index: 1;
 }
+
+.location-popup {
+  max-height: 400px;
+  max-width: 300px;
+  img {
+    width: 100%;
+  }
+  p {
+    min-width: 300px;
+  }
+}

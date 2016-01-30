@@ -1,11 +1,17 @@
 var addMarkers = function(map, locations) {
     locations.forEach(function(loc) {
-        L.marker([loc['latitude'], loc['longitude']]).addTo(map);
+        marker = L.marker([loc.latitude, loc.longitude]);
+        if (loc.posts.length > 0 || loc.photos.length > 0) {
+            marker.bindPopup(loc.popupContent());
+        } else {
+            marker.bindPopup(loc.name);
+        }
+        marker.addTo(map);
     });
 };
 
 var centerMap = function(map, loc) {
-    map.setView([loc['latitude'], loc['longitude']], 6);
+    map.setView([loc.latitude, loc.longitude], 6);
 };
 
 var initMap = function() {
@@ -23,8 +29,11 @@ var initMap = function() {
     map.zoomControl.setPosition('bottomleft');
     $.ajax({ url: '/locations' })
         .done(function(data) {
-            addMarkers(map, data['locations']);
-            centerMap(map, data['locations'].slice(-1)[0]);
+            var locations = data['locations'].map( function(json) {
+                return new Location(json['name'], json['latitude'], json['longitude'], json['posts'], json['photos']);
+            });
+            addMarkers(map, locations);
+            centerMap(map, locations.slice(-1)[0]);
         });
 };
 
