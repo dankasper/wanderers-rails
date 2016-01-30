@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
-<%= link_to 'Back', photos_path %>
+<div class="photo-full-display">
+  <%= image_tag @photo.image.url %>
+  <p><%= @photo.caption %></p>
+</div>

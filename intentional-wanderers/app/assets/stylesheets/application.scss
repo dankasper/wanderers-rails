@@ -66,8 +66,12 @@ a {
   margin-top: 7em;
   @include span-columns(8);
   @include shift(1);
+  padding: 1em;
   line-height: 1.2em;
   background-color: rgba(255,255,255,0.5);
+  img {
+    max-width: 100%;
+  }
 }
 
 #sidebar {
