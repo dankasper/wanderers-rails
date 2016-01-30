@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-
-  resources :locations
-  resources :photos
-  resources :posts
   root 'welcome#index'
 
   get 'about', to: 'about#index'
+  resources :locations
+  resources :photos
+  resources :posts
+
+  get 'login', to: 'authentication#login', as: 'login'
+  post 'verify_login', to: 'authentication#verify_login', as: 'verify_login'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
