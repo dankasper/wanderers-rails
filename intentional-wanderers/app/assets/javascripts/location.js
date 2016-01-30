@@ -9,10 +9,16 @@ function Location(name, latitude, longitude, posts, photos) {
 Location.prototype.popupContent = function() {
     var photoTag = "", postTag = "";
     if (this.photos.length > 0) {
-        photoTag = '<img src="' + this.photos[0].image + '"/>';
+        photoTag =
+            '<a href="' + this.photos[0].url + '">' +
+                '<img src="' + this.photos[0].image + '"/>' +
+            '</a>';
     }
     if (this.posts.length > 0) {
-        postTag = '<p>' + this.posts[0].body;
+        postTag =
+            '<a href="' + this.posts[0].url + '">' +
+                '<p>' + this.posts[0].body; '</p>' +
+            '</a>';
     }
     return [
         '<div class="location-popup">',

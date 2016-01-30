@@ -5,9 +5,11 @@ json.locations do
     json.longitude location.longitude
     json.posts location.posts do |post|
       json.body post.body
+      json.url post_path(post)
     end
     json.photos location.photos do |photo|
       json.image photo.image.url
+      json.url photo_path(photo)
     end
   end
 end
