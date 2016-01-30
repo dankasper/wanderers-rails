@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get 'about', to: 'about#index'
-  resources :locations
+  resources :locations, defaults: { format: :json }
   resources :photos
   resources :posts
 
