@@ -8,12 +8,21 @@
 }
 
 .location-popup {
-  max-height: 400px;
+  max-height: 420px;
   max-width: 300px;
   img {
     width: 100%;
   }
   p {
+    margin: 0;
+    padding: 6px;
     min-width: 300px;
+    color: black;
+  }
+  .link {
+    color: #0078a8;
+  }
+  .link:hover {
+    text-decoration: underline;
   }
 }

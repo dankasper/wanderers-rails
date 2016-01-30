@@ -52,13 +52,14 @@ header {
       position: relative;
       padding: 1.6em;
       float: right;
-    }
-    a {
       font-size: 1.2em;
-      text-decoration: none;
-      color: black;
     }
   }
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
 
 #content {

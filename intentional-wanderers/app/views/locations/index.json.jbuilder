@@ -4,7 +4,7 @@ json.locations do
     json.latitude location.latitude
     json.longitude location.longitude
     json.posts location.posts do |post|
-      json.body post.body
+      json.body post.body[0..180] + '...'
       json.url post_path(post)
     end
     json.photos location.photos do |photo|
