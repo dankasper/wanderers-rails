@@ -29,6 +29,9 @@ gem 'neat'
 
 gem 'bcrypt'
 
+gem 'fog-aws', '~>0.8.1' 
+gem 'dragonfly-s3_data_store'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
