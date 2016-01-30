@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130175925) do
+ActiveRecord::Schema.define(version: 20160130200540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,19 +25,27 @@ ActiveRecord::Schema.define(version: 20160130175925) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "image_uid"
     t.string   "image_name"
     t.string   "caption"
+    t.integer  "post_id"
+    t.integer  "location_id"
   end
+
+  add_index "photos", ["location_id"], name: "index_photos_on_location_id", using: :btree
+  add_index "photos", ["post_id"], name: "index_photos_on_post_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "location_id"
   end
+
+  add_index "posts", ["location_id"], name: "index_posts_on_location_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -46,4 +54,7 @@ ActiveRecord::Schema.define(version: 20160130175925) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "photos", "locations"
+  add_foreign_key "photos", "posts"
+  add_foreign_key "posts", "locations"
 end
