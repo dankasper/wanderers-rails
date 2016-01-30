@@ -60,8 +60,16 @@ header {
 }
 
 #content {
-  padding-top: 7em;
-  @include span-columns(10);
+  margin-top: 7em;
+  @include span-columns(8);
   @include shift(1);
   line-height: 1.2em;
+  background-color: rgba(255,255,255,0.5);
+}
+
+#sidebar {
+  margin-top: 7em;
+  padding-left: 3em;
+  padding-right: 3em;
+  @include span-columns(3);
 }
