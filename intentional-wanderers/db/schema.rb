@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130200540) do
+ActiveRecord::Schema.define(version: 20160131052012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,18 +24,28 @@ ActiveRecord::Schema.define(version: 20160130200540) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "photo_layouts", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "photo_id"
+    t.integer  "top"
+    t.string   "align"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "photo_layouts", ["photo_id"], name: "index_photo_layouts_on_photo_id", using: :btree
+  add_index "photo_layouts", ["post_id"], name: "index_photo_layouts_on_post_id", using: :btree
+
   create_table "photos", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "image_uid"
     t.string   "image_name"
     t.string   "caption"
-    t.integer  "post_id"
     t.integer  "location_id"
   end
 
   add_index "photos", ["location_id"], name: "index_photos_on_location_id", using: :btree
-  add_index "photos", ["post_id"], name: "index_photos_on_post_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -54,7 +64,8 @@ ActiveRecord::Schema.define(version: 20160130200540) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "photo_layouts", "photos"
+  add_foreign_key "photo_layouts", "posts"
   add_foreign_key "photos", "locations"
-  add_foreign_key "photos", "posts"
   add_foreign_key "posts", "locations"
 end

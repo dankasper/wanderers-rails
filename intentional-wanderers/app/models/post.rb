@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
-  has_many :photos
   belongs_to :location
+  has_many :photo_layouts
+  has_many :photos, through: :photo_layouts
 end

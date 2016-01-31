@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  post_id: 
+  photo_id: 
+  top: 1
+  align: MyString
+
+two:
+  post_id: 
+  photo_id: 
+  top: 1
+  align: MyString
