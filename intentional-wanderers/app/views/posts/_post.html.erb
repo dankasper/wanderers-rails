@@ -1,0 +1,9 @@
+<div class="post-full-display">
+  <%= content_tag :h2, post.title %>
+  <div class="post-body-container">
+    <% post.photo_layouts.each do |layout| %>
+      <%= positioned_photo_tag layout %>
+    <% end %>
+    <%= content_tag :p, post.body %>
+  </div>
+</div>
