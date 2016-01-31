@@ -15,6 +15,9 @@ var centerMap = function(map, loc) {
 };
 
 var initMap = function() {
+    if ($('#map').get().length < 1) {
+      return;
+    }
     var lat = $('#map').data('initial-lat');
     var lng = $('#map').data('initial-lng');
     var map = L.map('map');

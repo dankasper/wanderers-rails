@@ -6,7 +6,9 @@ module PostsHelper
           image_tag photo_layout.photo.image.url, style: 'margin: auto'
         end
       else
-        image_tag photo_layout.photo.image.url, style: "float: #{photo_layout.align};"
+        content_tag :div, { style: "float: #{photo_layout.align}" } do
+          image_tag photo_layout.photo.image.url, style: 'margin: auto'
+        end
       end
     end
   end
