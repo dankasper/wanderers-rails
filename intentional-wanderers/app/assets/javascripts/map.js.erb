@@ -1,25 +1,34 @@
+var pinIcon = L.icon({
+    iconUrl: "<%= image_path 'pin_final.png' %>",
+    iconSize: [51,67],
+    iconAnchor: [15,60],
+    popupAnchor: [16,-55]
+});
+
+var lastMarker;
+
 var addMarkers = function(map, locations) {
     locations.forEach(function(loc) {
-        marker = L.marker([loc.latitude, loc.longitude]);
+        marker = L.marker([loc.latitude, loc.longitude], {icon: pinIcon});
         if (loc.posts.length > 0 || loc.photos.length > 0) {
             marker.bindPopup(loc.popupContent());
         } else {
             marker.bindPopup(loc.name);
         }
         marker.addTo(map);
+        lastMarker = marker;
     });
 };
 
 var centerMap = function(map, loc) {
-    map.setView([loc.latitude, loc.longitude], 6);
+    map.setView([loc.latitude + 3, loc.longitude], 6);
+    lastMarker.openPopup();
 };
 
 var initMap = function() {
     if ($('#map').get().length < 1) {
       return;
     }
-    var lat = $('#map').data('initial-lat');
-    var lng = $('#map').data('initial-lng');
     var map = L.map('map');
     var StamenWatercolor = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
         attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
