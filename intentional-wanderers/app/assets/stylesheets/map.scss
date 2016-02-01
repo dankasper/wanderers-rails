@@ -9,14 +9,14 @@
 
 .location-popup {
   max-height: 420px;
-  max-width: 300px;
+  width: 300px;
   img {
     width: 100%;
   }
   p {
     margin: 0;
     padding: 6px;
-    min-width: 300px;
+    width: 100%;
     color: black;
   }
   .link {
