@@ -80,6 +80,16 @@ var configureDraggablePhotos = function() {
 $(document).ready(configureDraggablePhotos);
 $(document).on('page:load', configureDraggablePhotos);
 
+function addToPost(photo) {
+    $('.post-body-container').prepend([
+        '<div class="positioned-photo" style="padding-top: 0px; margin-bottom: 0px;" data-alignment="left" data-offset-top="0" data-photo-id="' + $(photo).attr('data-photo-id') + '" data-layout-id="">',
+            '<div style="float: left;">',
+                '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + $(photo).attr('src') + '" alt="' + $(photo).attr('alt') + '" style="margin: auto;"></img>',
+            '</div>',
+        '</div>'
+    ].join(""));
+}
+
 function savePost(method, url, published) {
     $.ajax({
         type: method,

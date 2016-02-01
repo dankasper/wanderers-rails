@@ -18,3 +18,17 @@
     max-width: 75%;
   }
 }
+
+#photo-selector {
+  img {
+    width: 19%;
+    margin: 0.5em 1%;
+  }
+}
+
+.editable {
+  img {
+    resize: both;
+    overflow: auto;
+  }
+}

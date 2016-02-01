@@ -1,5 +1,6 @@
 <div class="editable">
   <%= render partial: 'post', locals: { post: @post } %>
-  <button onclick="savePost('PUT', '<%= post_path @post %>', false)">Save</button>
-  <button onclick="savePost('PUT', '<%= post_path @post %>', true)">Publish</button>
 </div>
+<%= render partial: 'photo_selector' %>
+<button onclick="savePost('PUT', '<%= post_path @post %>', false)">Save</button>
+<button onclick="savePost('PUT', '<%= post_path @post %>', true)">Publish</button>

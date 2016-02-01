@@ -1,0 +1,5 @@
+<div id="photo-selector">
+  <% Photo.pending.each do |photo| %>
+    <%= image_tag photo.image.url, onclick: 'addToPost(this)', data: [ photo_id: photo.id ] %>
+  <% end %>
+</div>
