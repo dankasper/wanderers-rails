@@ -22,6 +22,12 @@
     <%= f.text_field :caption %>
   </div>
   <div class="field">
+    <%= f.label :location %>
+    <%= f.text_field :location_name, value: 'Name' %>
+    <%= f.text_field :latitude, value: 'Latitude' %>
+    <%= f.text_field :longitude, value: 'Longitude' %>
+  </div>
+  <div class="field">
     <%= f.label :published %>
     <%= f.check_box :published %>
   </div>

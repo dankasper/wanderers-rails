@@ -26,6 +26,7 @@ class PhotosController < ApplicationController
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
+    find_or_create_location
 
     respond_to do |format|
       if @photo.save
@@ -41,6 +42,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
+    find_or_create_location
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
@@ -71,5 +73,15 @@ class PhotosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
       params.require(:photo).permit(:image, :caption, :published)
+    end
+
+    def find_or_create_location
+      if params[:photo][:location_name]
+        if location = Location.find_by(name: params[:photo][:location_name])
+  	@photo.location = location
+        else
+  	@photo.create_location name: params[:photo][:location_name], latitude: params[:photo][:latitude], longitude: params[:photo][:longitude]
+        end
+      end
     end
 end
