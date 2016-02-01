@@ -1,3 +1,7 @@
+#photo-list {
+  background-color: rgba(255,255,255,0.35);
+}
+
 .imagetile {
   display: inline-block;
   width: 32%;
@@ -13,5 +17,11 @@
     display: block;
     margin: auto;
     max-height: 70vh;
+  }
+  p {
+    margin: auto;
+    max-width: 70%;
+    text-align: center;
+    font-size: 1.2em;
   }
 }
