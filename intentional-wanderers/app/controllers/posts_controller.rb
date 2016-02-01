@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to @post, status: 200 }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
@@ -70,6 +70,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      Rails.logger.info "Params: #{params}"
+      params.require(:post).permit(:title, :body, photo_layouts_attributes: [:id, :photo_id, :top, :align])
     end
 end

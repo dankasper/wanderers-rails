@@ -15,7 +15,9 @@ function storeInitialPhotoPosition(ev) {
         'initialOffsetTop': target.offset().top,
         'initialOffsetWidth': target.width(),
         'imageSrc': target.attr('src'),
-        'imageAlt': target.attr('alt')
+        'imageAlt': target.attr('alt'),
+        'photoId': target.parents('.positioned-photo').attr('data-photo-id'),
+        'layoutId': target.parents('.positioned-photo').attr('data-layout-id')
     }));
 }
 
@@ -31,18 +33,21 @@ function calculateNewPhotoLayout(ev) {
     var newOffsetRight = newOffsetLeft + data['initialOffsetWidth']
     var newPaddingLeft = newOffsetLeft - container.offset().left;
     var newPaddingRight = container.offset().left + container.width() - newOffsetRight;
-    var newAlignmentStyle;
+    var newAlignment, newAlignmentStyle;
     if (newPaddingLeft < 200 && newPaddingRight < 200) {
+        newAlignment = 'clear';
         newAlignmentStyle = 'float: left; width: 100%';
     } else if (newPaddingLeft < 200) {
+        newAlignment = 'left';
         newAlignmentStyle = 'float: left;'
     } else if (newPaddingRight < 200) {
+        newAlignment = 'right';
         newAlignmentStyle = 'float: right;';
     } else {
         return;
     }
     container.prepend([
-        '<div class="positioned-photo" style="padding-top: ' + newPaddingTop + 'px; margin-bottom: -' + newPaddingTop + 'px;">',
+        '<div class="positioned-photo" style="padding-top: ' + newPaddingTop + 'px; margin-bottom: -' + newPaddingTop + 'px;" data-alignment="' + newAlignment + '" data-offset-top="' + newPaddingTop + '" data-photo-id="' + data['photoId'] + '" data-layout-id="' + data['layoutId'] +'">',
             '<div style="' + newAlignmentStyle + '">',
                 '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + data['imageSrc'] + '" alt="' + data['imageAlt'] + '" style="margin: auto;"></img>',
             '</div>',
@@ -73,3 +78,31 @@ var configureDraggablePhotos = function() {
 
 $(document).ready(configureDraggablePhotos);
 $(document).on('page:load', configureDraggablePhotos);
+
+function savePost() {
+    $.ajax({
+        type: 'PUT',
+        url: '/posts/1',
+        data: { 'post': {
+            'title': $('.post-full-display h2').text(),
+            'body': $('.post-body-container p').text(),
+            'photo_layouts_attributes': $('.positioned-photo').get().map( function(photo) {
+                return {
+                           'id': $(photo).attr('data-layout-id'),
+                           'photo_id': $(photo).attr('data-photo-id'),
+                           'top': $(photo).attr('data-offset-top'),
+                           'align': $(photo).attr('data-alignment')
+                       };
+            })
+        } },
+        success: function(data, textStatus) {
+            if (data.redirect) {
+                window.location.replace(data.redirect);
+            } else {
+                // drop edit from path to get show url
+                url = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                window.location.replace(url);
+            }
+        }
+    });
+}
