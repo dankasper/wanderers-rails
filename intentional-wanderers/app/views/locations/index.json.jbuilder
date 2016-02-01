@@ -4,7 +4,11 @@ json.locations do
     json.latitude location.latitude
     json.longitude location.longitude
     json.posts location.posts do |post|
-      json.body post.body[0..180] + '...'
+      if post.body.length > 180
+        json.body post.body[0..180] + '... (<span class="link">Read More</span>)'
+      else
+        json.body post.body
+      end
       json.url post_path(post)
     end
     json.photos location.photos do |photo|

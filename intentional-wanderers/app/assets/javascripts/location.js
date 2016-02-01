@@ -17,7 +17,7 @@ Location.prototype.popupContent = function() {
     if (this.posts.length > 0) {
         postTag =
             '<a href="' + this.posts[0].url + '">' +
-                '<p>' + this.posts[0].body + ' (<span class="link">Read More</span>)</p>' +
+                '<p>' + this.posts[0].body + '</p>' +
             '</a>';
     }
     return [
