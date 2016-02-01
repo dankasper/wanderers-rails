@@ -15,11 +15,15 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = Post.new title: 'Title', body: 'Say something cool here'
+    @callback_method = 'POST'
+    @callback_url = posts_path
   end
 
   # GET /posts/1/edit
   def edit
+    @callback_method = 'PUT'
+    @callback_url = post_path @post 
   end
 
   # POST /posts
@@ -29,7 +33,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { redirect_to @post, status: 201 }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -71,6 +75,6 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       Rails.logger.info "Params: #{params}"
-      params.require(:post).permit(:id, :title, :body, :published, photo_layouts_attributes: [:id, :photo_id, :top, :align])
+      params.require(:post).permit(:title, :body, :published, photo_layouts_attributes: [:id, :photo_id, :top, :align])
     end
 end

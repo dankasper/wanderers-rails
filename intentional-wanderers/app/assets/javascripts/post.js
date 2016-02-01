@@ -1,5 +1,6 @@
 var setEditableElements = function() {
     $('.editable p').attr('contenteditable', 'true');
+    $('.editable h2').attr('contenteditable', 'true');
 };
 
 $(document).ready(setEditableElements);
@@ -79,12 +80,11 @@ var configureDraggablePhotos = function() {
 $(document).ready(configureDraggablePhotos);
 $(document).on('page:load', configureDraggablePhotos);
 
-function savePost(published) {
+function savePost(method, url, published) {
     $.ajax({
-        type: 'PUT',
-        url: '/posts/1',
+        type: method,
+        url: url,
         data: { 'post': {
-            'id': $('.post-full-display').attr('data-id'),
             'title': $('.post-full-display h2').text(),
             'body': $('.post-body-container p').text(),
             'photo_layouts_attributes': $('.positioned-photo').get().map( function(photo) {
