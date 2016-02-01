@@ -10,4 +10,17 @@ class Photo < ActiveRecord::Base
       }
     end
   end
+
+  scope :published, -> { where(published: true) }
+
+  after_save :publish_location, if: :published?
+
+  def publish!
+    self.published = true
+    save!
+  end
+
+  def publish_location
+    location.publish!
+  end
 end

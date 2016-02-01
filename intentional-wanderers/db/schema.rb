@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131052012) do
+ActiveRecord::Schema.define(version: 20160201043113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160131052012) do
     t.float    "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "published"
   end
 
   create_table "photo_layouts", force: :cascade do |t|
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160131052012) do
     t.string   "image_name"
     t.string   "caption"
     t.integer  "location_id"
+    t.boolean  "published"
   end
 
   add_index "photos", ["location_id"], name: "index_photos_on_location_id", using: :btree
@@ -53,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160131052012) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "location_id"
+    t.boolean  "published"
   end
 
   add_index "posts", ["location_id"], name: "index_posts_on_location_id", using: :btree

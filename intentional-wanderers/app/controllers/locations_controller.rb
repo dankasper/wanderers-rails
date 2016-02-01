@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
   def index
-    @locations = Location.all
+    @locations = Location.published
   end    
 end
