@@ -14,7 +14,8 @@ function storeInitialPhotoPosition(ev) {
         'initialClientY': ev.clientY,
         'initialOffsetLeft': target.offset().left,
         'initialOffsetTop': target.offset().top,
-        'initialOffsetWidth': target.width(),
+        'initialWidth': target.width(),
+        'initialHeight': target.height(),
         'imageSrc': target.attr('src'),
         'imageAlt': target.attr('alt'),
         'photoId': target.parents('.positioned-photo').attr('data-photo-id'),
@@ -31,7 +32,7 @@ function calculateNewPhotoLayout(ev) {
     var newOffsetTop = data['initialOffsetTop'] +  translateY;
     var newPaddingTop = newOffsetTop - container.offset().top;
     var newOffsetLeft = data['initialOffsetLeft'] + translateX;
-    var newOffsetRight = newOffsetLeft + data['initialOffsetWidth']
+    var newOffsetRight = newOffsetLeft + data['initialWidth']
     var newPaddingLeft = newOffsetLeft - container.offset().left;
     var newPaddingRight = container.offset().left + container.width() - newOffsetRight;
     var newAlignment, newAlignmentStyle;
@@ -50,14 +51,15 @@ function calculateNewPhotoLayout(ev) {
     container.prepend([
         '<div class="positioned-photo" style="padding-top: ' + newPaddingTop + 'px; margin-bottom: -' + newPaddingTop + 'px;" data-alignment="' + newAlignment + '" data-offset-top="' + newPaddingTop + '" data-photo-id="' + data['photoId'] + '" data-layout-id="' + data['layoutId'] +'">',
             '<div style="' + newAlignmentStyle + '">',
-                '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + data['imageSrc'] + '" alt="' + data['imageAlt'] + '" style="margin: auto;"></img>',
+                '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + data['imageSrc'] + '" alt="' + data['imageAlt'] + '" style="margin: auto; width:' + data['initialWidth'] + 'px; height: ' + data['initialHeight'] +'px;"></img>',
             '</div>',
         '</div>'
     ].join(""));
+    $('.editable img').resizable({ aspectRatio: true });
 }
 
 function destroyOriginalPhoto(ev) {
-    $(ev.target).parent().parent().remove();
+    $(ev.target).parents('.positioned-photo').remove();
 }
 
 function allowDrop(ev) {
@@ -75,19 +77,23 @@ var configureDraggablePhotos = function() {
         'ondrop': 'calculateNewPhotoLayout(event)',
         'ondragover': 'allowDrop(event)'
     });
+    $(".editable img").resizable({ aspectRatio: true });
 };
 
 $(document).ready(configureDraggablePhotos);
 $(document).on('page:load', configureDraggablePhotos);
 
 function addToPost(photo) {
+    console.log($(photo).height());
+    console.log($(photo).width());
     $('.post-body-container').prepend([
         '<div class="positioned-photo" style="padding-top: 0px; margin-bottom: 0px;" data-alignment="left" data-offset-top="0" data-photo-id="' + $(photo).attr('data-photo-id') + '" data-layout-id="">',
             '<div style="float: left;">',
-                '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + $(photo).attr('src') + '" alt="' + $(photo).attr('alt') + '" style="margin: auto;"></img>',
+                '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + $(photo).attr('src') + '" alt="' + $(photo).attr('alt') + '" style="margin: auto; height: ' + $(photo).height() + 'px; width: ' + $(photo).width() + 'px;"></img>',
             '</div>',
         '</div>'
     ].join(""));
+    $(".editable img").resizable({ aspectRatio: true });
 }
 
 function savePost(method, url, published) {
@@ -103,7 +109,9 @@ function savePost(method, url, published) {
                         'id': $(photo).attr('data-layout-id'),
                         'photo_id': $(photo).attr('data-photo-id'),
                         'top': $(photo).attr('data-offset-top'),
-                        'align': $(photo).attr('data-alignment')
+                        'align': $(photo).attr('data-alignment'),
+                        'height': $(photo).find('img').height(),
+                        'width': $(photo).find('img').width()
                     };
                 }),
                 'published': published

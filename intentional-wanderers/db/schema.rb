@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201043113) do
+ActiveRecord::Schema.define(version: 20160201201012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20160201043113) do
     t.string   "align"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "height"
+    t.integer  "width"
   end
 
   add_index "photo_layouts", ["photo_id"], name: "index_photo_layouts_on_photo_id", using: :btree
