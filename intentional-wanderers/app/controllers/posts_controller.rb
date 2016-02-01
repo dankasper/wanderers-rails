@@ -71,6 +71,6 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       Rails.logger.info "Params: #{params}"
-      params.require(:post).permit(:title, :body, photo_layouts_attributes: [:id, :photo_id, :top, :align])
+      params.require(:post).permit(:id, :title, :body, :published, photo_layouts_attributes: [:id, :photo_id, :top, :align])
     end
 end

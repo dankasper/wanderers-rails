@@ -79,11 +79,12 @@ var configureDraggablePhotos = function() {
 $(document).ready(configureDraggablePhotos);
 $(document).on('page:load', configureDraggablePhotos);
 
-function savePost() {
+function savePost(published) {
     $.ajax({
         type: 'PUT',
         url: '/posts/1',
         data: { 'post': {
+            'id': $('.post-full-display').attr('data-id'),
             'title': $('.post-full-display h2').text(),
             'body': $('.post-body-container p').text(),
             'photo_layouts_attributes': $('.positioned-photo').get().map( function(photo) {
@@ -93,7 +94,8 @@ function savePost() {
                            'top': $(photo).attr('data-offset-top'),
                            'align': $(photo).attr('data-alignment')
                        };
-            })
+            }),
+            'published': published
         } },
         success: function(data, textStatus) {
             if (data.redirect) {

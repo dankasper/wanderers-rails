@@ -25,3 +25,21 @@
     font-size: 1.2em;
   }
 }
+
+.new_photo {
+  div {
+    padding: 8px 0px;
+  }
+  #image_preview {
+    visibility: hidden;
+  }
+}
+
+.edit_photo {
+  div {
+    padding: 8px 0px;
+  }
+  #photo_image {
+    visibility: hidden;
+  }
+}

@@ -1,4 +1,5 @@
 <div class="editable">
   <%= render partial: 'post', locals: { post: @post } %>
-  <button onclick="savePost()">Save</button>
+  <button onclick="savePost(false)">Save</button>
+  <button onclick="savePost(true)">Publish</button>
 </div>

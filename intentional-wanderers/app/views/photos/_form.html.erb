@@ -11,8 +11,19 @@
     </div>
   <% end %>
 
+  <% if @photo.image %>
+    <%= image_tag @photo.image.url, id: 'image_preview' %>
+  <% end %>
   <div class="field">
     <%= f.file_field :image %>
+  </div>
+  <div class="field">
+    <%= f.label :caption %>
+    <%= f.text_field :caption %>
+  </div>
+  <div class="field">
+    <%= f.label :published %>
+    <%= f.check_box :published %>
   </div>
   <div class="actions">
     <%= f.submit %>
