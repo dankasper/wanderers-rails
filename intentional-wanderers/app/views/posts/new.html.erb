@@ -1,5 +1,8 @@
 <div class="editable">
   <%= render partial: 'post', locals: { post: @post } %>
+  <%= text_field_tag 'latitude', 'Latitude', id: 'latitude' %>
+  <%= text_field_tag 'longitude', 'Longitude', id: 'longitude' %>
+  <br/><br/>
   <button onclick="savePost('POST', '<%= posts_path %>', false)">Save</button>
   <button onclick="savePost('POST', '<%= posts_path %>', true)">Publish</button>
 </div>

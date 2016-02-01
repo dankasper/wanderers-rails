@@ -84,19 +84,26 @@ function savePost(method, url, published) {
     $.ajax({
         type: method,
         url: url,
-        data: { 'post': {
-            'title': $('.post-full-display h2').text(),
-            'body': $('.post-body-container p').text(),
-            'photo_layouts_attributes': $('.positioned-photo').get().map( function(photo) {
-                return {
-                           'id': $(photo).attr('data-layout-id'),
-                           'photo_id': $(photo).attr('data-photo-id'),
-                           'top': $(photo).attr('data-offset-top'),
-                           'align': $(photo).attr('data-alignment')
-                       };
-            }),
-            'published': published
-        } },
+        data: {
+            'post': {
+                'title': $('.post-full-display h2').text(),
+                'body': $('.post-body-container p').text(),
+                'photo_layouts_attributes': $('.positioned-photo').get().map( function(photo) {
+                    return {
+                        'id': $(photo).attr('data-layout-id'),
+                        'photo_id': $(photo).attr('data-photo-id'),
+                        'top': $(photo).attr('data-offset-top'),
+                        'align': $(photo).attr('data-alignment')
+                    };
+                }),
+                'published': published
+            },
+            'location': {
+                'name': $('.location').text(),
+                'latitude': $('#latitude').val(),
+                'longitude': $('#longitude').val()
+            }
+        },
         success: function(data, textStatus) {
             if (data.redirect) {
                 window.location.replace(data.redirect);

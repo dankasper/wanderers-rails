@@ -15,7 +15,8 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new title: 'Title', body: 'Say something cool here'
+    location = Location.new name: 'Location'
+    @post = Post.new title: 'Title', body: 'Say something cool here', location: location
     @callback_method = 'POST'
     @callback_url = posts_path
   end
@@ -29,7 +30,10 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    location = Location.where(name: params[:location][:name]).first_or_create
+    location.update(location_params)
     @post = Post.new(post_params)
+    @post.location = location
 
     respond_to do |format|
       if @post.save
@@ -74,7 +78,10 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      Rails.logger.info "Params: #{params}"
       params.require(:post).permit(:title, :body, :published, photo_layouts_attributes: [:id, :photo_id, :top, :align])
+    end
+
+    def location_params
+      params.require(:location).permit(:name, :latitude, :longitude)
     end
 end
