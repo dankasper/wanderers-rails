@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get 'login', to: 'authentication#login', as: 'login'
   post 'verify_login', to: 'authentication#verify_login', as: 'verify_login'
+
+  get 'admin', to: 'admin#index', as: 'admin'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -6,6 +6,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :photo_layouts
 
   scope :published, -> { where(published: true) }
+  scope :pending, -> { where(published: false) }
 
   after_save :publish_photos_and_location, if: :published?
 

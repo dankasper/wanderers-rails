@@ -12,6 +12,7 @@ class Photo < ActiveRecord::Base
   end
 
   scope :published, -> { where(published: true) }
+  scope :pending, -> { where(published: false) }
 
   after_save :publish_location, if: :published?
 
