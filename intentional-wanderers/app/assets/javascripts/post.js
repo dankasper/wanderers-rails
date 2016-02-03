@@ -1,10 +1,27 @@
-var setEditableElements = function() {
+var initTextArea = function() {
     $('.editable p').attr('contenteditable', 'true');
     $('.editable h2').attr('contenteditable', 'true');
+    $('.editable p').on('paste', function(e) {
+        e.preventDefault();
+        var text;
+        if (e.clipboardData) {
+            text = e.clipboardData.getData("text/plain");
+        } else if (e.originalEvent && e.originalEvent.clipboardData) {
+            text = e.originalEvent.clipboardData.getData("text/plain");
+        } else if (window.clipboardData) {
+            text = window.clipboardData.getData('Text');
+        }
+        var target = $(e.target);
+        var cursorPos = target.prop('selectionStart');
+        var before = target.text().substring(0, cursorPos);
+        var after = target.text().substring(cursorPos, target.text().length);
+        target.text( before + text + after );
+        target.prop('selectionStart', cursorPos + text.length);
+    });
 };
 
-$(document).ready(setEditableElements);
-$(document).on('page:load', setEditableElements);
+$(document).ready(initTextArea);
+$(document).on('page:load', initTextArea);
 
 function storeInitialPhotoPosition(ev) {
     var target = $(ev.target);
@@ -84,8 +101,6 @@ $(document).ready(configureDraggablePhotos);
 $(document).on('page:load', configureDraggablePhotos);
 
 function addToPost(photo) {
-    console.log($(photo).height());
-    console.log($(photo).width());
     $('.post-body-container').prepend([
         '<div class="positioned-photo" style="padding-top: 0px; margin-bottom: 0px;" data-alignment="left" data-offset-top="0" data-photo-id="' + $(photo).attr('data-photo-id') + '" data-layout-id="">',
             '<div style="float: left;">',
