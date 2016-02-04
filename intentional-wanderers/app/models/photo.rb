@@ -4,6 +4,9 @@ class Photo < ActiveRecord::Base
   has_many :posts, through: :photo_layouts
 
   dragonfly_accessor :image do
+    after_assign do |attachment|
+      attachment.convert! '-auto-orient'
+    end
     storage_options do |image|
       {
         path: "photos/#{SecureRandom.uuid}/#{image.name}"
