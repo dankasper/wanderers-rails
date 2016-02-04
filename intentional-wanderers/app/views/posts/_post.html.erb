@@ -8,4 +8,10 @@
     <%= content_tag :p, post.body.html_safe %>
     <div style="clear: both;"></div>
   </div>
+  <div class="tags">
+    Tags:
+    <% post.tags.each_with_index do |tag, i| %>
+      <%= ', ' unless i == 0 %><%= link_to tag, tag_path(tag) %>
+    <% end %>
+  </div>
 </div>

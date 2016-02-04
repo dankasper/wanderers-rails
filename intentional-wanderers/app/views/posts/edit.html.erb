@@ -1,6 +1,9 @@
 <div class="editable">
   <%= render partial: 'post', locals: { post: @post } %>
 </div>
+<%= text_field_tag 'latitude', @post.location.latitude, id: 'latitude' %>
+<%= text_field_tag 'longitude', @post.location.longitude, id: 'longitude' %>
+<%= text_field_tag 'tags', @post.tags.join(', '), id: 'tags' %>
 <%= render partial: 'photo_selector' %>
 <button onclick="savePost('PUT', '<%= post_path @post %>', false)">Save</button>
 <button onclick="savePost('PUT', '<%= post_path @post %>', true)">Publish</button>

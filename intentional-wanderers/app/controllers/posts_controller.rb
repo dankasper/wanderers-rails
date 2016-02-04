@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     location = Location.new name: 'Location'
-    @post = Post.new title: 'Title', body: 'Say something cool here', location: location
+    @post = Post.new title: 'Title', body: 'Say something cool here', location: location, tags: []
     @callback_method = 'POST'
     @callback_url = posts_path
   end
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body, :published, photo_layouts_attributes: [:id, :photo_id, :top, :align, :height, :width])
+      params.require(:post).permit(:title, :body, :published, :tags, photo_layouts_attributes: [:id, :photo_id, :top, :align, :height, :width])
     end
 
     def location_params

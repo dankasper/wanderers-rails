@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :locations, defaults: { format: :json }
   resources :photos
   resources :posts
+  get 'tags/:tag', to: 'tags#show', as: 'tag'
+
 
   get 'login', to: 'authentication#login', as: 'login'
   post 'verify_login', to: 'authentication#verify_login', as: 'verify_login'

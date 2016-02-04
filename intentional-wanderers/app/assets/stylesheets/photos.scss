@@ -13,6 +13,8 @@
 
 .photo-full-display {
   width: 100%;
+  background-color: rgba(255,255,255,0.35);
+  padding: 1em;
   img {
     display: block;
     margin: auto;
@@ -54,6 +56,9 @@
   height: 150vh;
   padding: 8.5em 15% 35%;
   background-color: rgba(0,0,0,0.5);
+  .photo-full-display {
+    background: none;
+  }
 }
 
 .bx-wrapper {

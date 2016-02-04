@@ -1,5 +1,7 @@
 <div id='photo-list'>
-  <%= render Photo.published.reverse %>
+  <% Photo.published.reverse.each do |photo| %>
+    <%= render partial: 'tile', locals: { photo: photo } %>
+  <% end %>
 </div>
 
 <div id='photo-slideshow' onclick='closeSlideshow(event)'>

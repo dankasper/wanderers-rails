@@ -3,6 +3,7 @@
 </div>
 <%= text_field_tag 'latitude', 'Latitude', id: 'latitude' %>
 <%= text_field_tag 'longitude', 'Longitude', id: 'longitude' %>
+<%= text_field_tag 'tags', 'Tags', id: 'tags' %>
 <%= render partial: 'photo_selector' %>
 <button onclick="savePost('POST', '<%= posts_path %>', false)">Save</button>
 <button onclick="savePost('POST', '<%= posts_path %>', true)">Publish</button>

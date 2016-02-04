@@ -72,15 +72,15 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:image, :caption, :published)
+      params.require(:photo).permit(:image, :caption, :published, :tags)
     end
 
     def find_or_create_location
       if params[:photo][:location_name]
         if location = Location.find_by(name: params[:photo][:location_name])
-  	@photo.location = location
+          @photo.location = location
         else
-  	@photo.create_location name: params[:photo][:location_name], latitude: params[:photo][:latitude], longitude: params[:photo][:longitude]
+          @photo.create_location name: params[:photo][:location_name], latitude: params[:photo][:latitude], longitude: params[:photo][:longitude]
         end
       end
     end

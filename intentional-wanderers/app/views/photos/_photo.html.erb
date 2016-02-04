@@ -1,3 +1,10 @@
-<div class="imagetile">
-  <%= image_tag photo.image.url, onclick: 'slideshow(this)' %>
+<div class="photo-full-display">
+  <%= image_tag photo.image.url %>
+  <p><%= photo.caption %></p>
+  <div class="tags">
+    Tags:
+    <% photo.tags.each_with_index do |tag, i| %>
+      <%= ', ' unless i == 0 %><%= link_to tag, tag_path(tag) %>
+    <% end %>
+  </div>
 </div>

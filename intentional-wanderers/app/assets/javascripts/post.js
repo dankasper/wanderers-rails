@@ -112,7 +112,8 @@ function savePost(method, url, published) {
                         'width': $(photo).find('img').width()
                     };
                 }),
-                'published': published
+                'published': published,
+                'tags': $('#tags').val()
             },
             'location': {
                 'name': $('.location').text(),
