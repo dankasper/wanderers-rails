@@ -10,13 +10,16 @@ var lastMarker;
 var addMarkers = function(map, locations) {
     locations.forEach(function(loc) {
         marker = L.marker([loc.latitude, loc.longitude], {icon: pinIcon});
-        if (loc.posts.length > 0 || loc.photos.length > 0) {
+        if (loc.orderedContent.length > 0) {
             marker.bindPopup(loc.popupContent());
         } else {
             marker.bindPopup(loc.name);
         }
         marker.addTo(map);
         lastMarker = marker;
+    });
+    map.on('popupopen', function() {
+        $('.bxslider.popup').bxSlider();
     });
 };
 
@@ -42,7 +45,7 @@ var initMap = function() {
     $.ajax({ url: '/locations' })
         .done(function(data) {
             var locations = data['locations'].map( function(json) {
-                return new Location(json['name'], json['latitude'], json['longitude'], json['posts'], json['photos']);
+                return new Location(json['name'], json['latitude'], json['longitude'], json['orderedContent']);
             });
             addMarkers(map, locations);
             centerMap(map, locations.slice(-1)[0]);

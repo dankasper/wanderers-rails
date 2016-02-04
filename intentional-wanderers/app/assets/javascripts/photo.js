@@ -1,10 +1,10 @@
 var slider;
 
 $(document).ready(function() {
-  slider = $('.bxslider').bxSlider();
+  slider = $('.bxslider.gallery').bxSlider();
 });
 $(document).on('page:load', function() {
-  slider = $('.bxslider').bxSlider();
+  slider = $('.bxslider.gallery').bxSlider();
 });
 
 function slideshow(image) {

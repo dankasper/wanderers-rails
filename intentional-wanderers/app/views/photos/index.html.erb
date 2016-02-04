@@ -5,7 +5,7 @@
 </div>
 
 <div id='photo-slideshow' onclick='closeSlideshow(event)'>
-  <ul class="bxslider">
+  <ul class="bxslider gallery">
     <% Photo.published.reverse.each do |photo| %>
       <li><%= render partial: 'slide', locals: { photo: photo } %></li>
     <% end %>

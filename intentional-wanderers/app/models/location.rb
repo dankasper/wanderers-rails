@@ -8,4 +8,8 @@ class Location < ActiveRecord::Base
     self.published = true
     save!
   end
+
+  def ordered_content
+    (posts + photos).sort_by { |content| content.created_at }.reverse
+  end
 end

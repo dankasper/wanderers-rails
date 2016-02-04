@@ -59,15 +59,15 @@
   .photo-full-display {
     background: none;
   }
+  .bx-wrapper {
+    border: 0px;
+    background-color: black;
+    img {
+      margin-top: 1em;
+    }
+    p {
+      color: white;
+    }
+  }
 }
 
-.bx-wrapper {
-  border: 0px;
-  background-color: black;
-  img {
-    margin-top: 1em;
-  }
-  p {
-    color: white;
-  }
-}

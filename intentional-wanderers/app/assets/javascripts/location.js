@@ -1,30 +1,56 @@
-function Location(name, latitude, longitude, posts, photos) {
+function Location(name, latitude, longitude, orderedContent) {
     this.name = name;
     this.latitude = latitude;
     this.longitude = longitude;
-    this.posts = posts;
-    this.photos = photos;
+    this.orderedContent = orderedContent;
 }
 
-Location.prototype.popupContent = function() {
-    var photoTag = "", postTag = "";
-    if (this.photos.length > 0) {
+Location.prototype.postPopupContent = function(post) {
+    var photoTag = "";
+    if (post['photos'] && post['photos'].length > 0) {
         photoTag =
-            '<a href="' + this.photos[0].url + '">' +
-                '<img src="' + this.photos[0].image + '"/>' +
+            '<a href="' + post['photos'][0].url + '">' +
+                '<img src="' + post['photos'][0].image + '"/>' +
             '</a>';
     }
-    if (this.posts.length > 0) {
-        postTag =
-            '<a href="' + this.posts[0].url + '">' +
-                '<p>' + this.posts[0].body + '</p>' +
+    var postTag =
+            '<a href="' + post.url + '">' +
+                '<p>' + post.body + '</p>' +
+            '</a>';
+    return ['<li>', photoTag, postTag, '</li>'].join("\n");
+};
+
+Location.prototype.photoPopupContent = function(photo) {
+    var photoTag =
+            '<a href="' + photo.url + '">' +
+                '<img src="' + photo.image + '"/>' +
+            '</a>';
+    var captionTag;
+    if (photo['caption']) {
+        captionTag =
+            '<a href="' + photo.url + '">' +
+                '<p>' + photo['caption'] + '</p>' +
             '</a>';
     }
+    return ['<li>', photoTag, captionTag, '</li>'].join("\n");
+};
+
+Location.prototype.popupContent = function() {
+    var loc = this;
+    var contentTags = loc.orderedContent.map(function(content) {
+        if (content['type'] == 'post') {
+            return loc.postPopupContent(content);
+        } else if (content['type'] == 'photo') {
+            return loc.photoPopupContent(content);
+        }
+    });
     return [
         '<div class="location-popup">',
-            '<h3>' + this.name + '</h3>',
-            photoTag,
-            postTag,
+            '<h3>' + loc.name + '</h3>',
+            '<ul class="bxslider popup">',
+                contentTags.join("\n"),
+            '</ul>',
         '</div>'
     ].join("\n");
-};       
+};
+
