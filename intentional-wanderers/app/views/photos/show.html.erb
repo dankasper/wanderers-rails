@@ -2,3 +2,7 @@
   <%= image_tag @photo.image.url %>
   <p><%= @photo.caption %></p>
 </div>
+
+<% if @current_user %>
+  <%= link_to 'New Photo', new_photo_path %>
+<% end %>
