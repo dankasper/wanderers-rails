@@ -38,7 +38,7 @@ class Photo < ActiveRecord::Base
   def parse_tags
     if tags
       if tags.is_a?(String)
-        self.tags = CSV.parse_line(tags).map &:strip
+        self.tags = (CSV.parse_line(tags) || []).map &:strip
       end
     else
       self.tags = []
