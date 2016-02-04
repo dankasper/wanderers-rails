@@ -36,22 +36,22 @@ function calculateNewPhotoLayout(ev) {
     var newPaddingLeft = newOffsetLeft - container.offset().left;
     var newPaddingRight = container.offset().left + container.width() - newOffsetRight;
     var newAlignment, newAlignmentStyle;
-    if (newPaddingLeft < 200 && newPaddingRight < 200) {
-        newAlignment = 'clear';
-        newAlignmentStyle = 'float: left; width: 100%';
-    } else if (newPaddingLeft < 200) {
+    if (newPaddingLeft < 50) {
         newAlignment = 'left';
         newAlignmentStyle = 'float: left;'
-    } else if (newPaddingRight < 200) {
+    } else if (newPaddingRight < 50) {
         newAlignment = 'right';
         newAlignmentStyle = 'float: right;';
     } else {
-        return;
+        newAlignment = 'clear';
+        newAlignmentStyle = 'float: left; width: 100%';
     }
     container.prepend([
         '<div class="positioned-photo" style="padding-top: ' + newPaddingTop + 'px; margin-bottom: -' + newPaddingTop + 'px;" data-alignment="' + newAlignment + '" data-offset-top="' + newPaddingTop + '" data-photo-id="' + data['photoId'] + '" data-layout-id="' + data['layoutId'] +'">',
             '<div style="' + newAlignmentStyle + '">',
-                '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + data['imageSrc'] + '" alt="' + data['imageAlt'] + '" style="margin: auto; width:' + data['initialWidth'] + 'px; height: ' + data['initialHeight'] +'px;"></img>',
+                '<div style="margin: auto; width: ' + data['initialWidth'] + 'px; height: ' + data['initialHeight'] + 'px;">',
+    		    '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + data['imageSrc'] + '" alt="' + data['imageAlt'] + '" style="margin: auto; width:' + data['initialWidth'] + 'px; height: ' + data['initialHeight'] +'px;"></img>',
+                '</div>',
             '</div>',
         '</div>'
     ].join(""));
@@ -84,8 +84,6 @@ $(document).ready(configureDraggablePhotos);
 $(document).on('page:load', configureDraggablePhotos);
 
 function addToPost(photo) {
-    console.log($(photo).height());
-    console.log($(photo).width());
     $('.post-body-container').prepend([
         '<div class="positioned-photo" style="padding-top: 0px; margin-bottom: 0px;" data-alignment="left" data-offset-top="0" data-photo-id="' + $(photo).attr('data-photo-id') + '" data-layout-id="">',
             '<div style="float: left;">',
@@ -103,7 +101,7 @@ function savePost(method, url, published) {
         data: {
             'post': {
                 'title': $('.post-full-display h2').text(),
-                'body': $('.post-body-container p').text(),
+                'body': $('.post-body-container p').html(),
                 'photo_layouts_attributes': $('.positioned-photo').get().map( function(photo) {
                     return {
                         'id': $(photo).attr('data-layout-id'),

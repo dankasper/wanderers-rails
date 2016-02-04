@@ -30,10 +30,8 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    location = Location.where(name: params[:location][:name]).first_or_create
-    location.update(location_params)
     @post = Post.new(post_params)
-    @post.location = location
+    update_location
 
     respond_to do |format|
       if @post.save
@@ -49,6 +47,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    update_location
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, status: 200 }
@@ -83,5 +82,13 @@ class PostsController < ApplicationController
 
     def location_params
       params.require(:location).permit(:name, :latitude, :longitude)
+    end
+
+    def update_location
+      if location = Location.find_by(name: params[:location][:name])
+        @post.location = location
+      else
+        @post.location = Location.create(location_params)
+      end
     end
 end

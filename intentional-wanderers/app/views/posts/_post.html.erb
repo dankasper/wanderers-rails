@@ -5,7 +5,7 @@
     <% post.photo_layouts.each do |layout| %>
       <%= positioned_photo_tag layout %>
     <% end %>
-    <%= content_tag :p, post.body %>
+    <%= content_tag :p, post.body.html_safe %>
     <div style="clear: both;"></div>
   </div>
 </div>
