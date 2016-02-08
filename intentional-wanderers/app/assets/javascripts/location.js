@@ -6,10 +6,10 @@ function Location(name, latitude, longitude, orderedContent) {
 }
 
 Location.prototype.postPopupContent = function(post) {
-    var photoTag = "";
+    var photoTag = "<h3>" + post.title + "</h3>";
     if (post['photos'] && post['photos'].length > 0) {
         photoTag =
-            '<a href="' + post['photos'][0].url + '">' +
+            '<a href="' + post.url + '">' +
                 '<img src="' + post['photos'][0].image + '"/>' +
             '</a>';
     }
@@ -46,7 +46,7 @@ Location.prototype.popupContent = function() {
     });
     return [
         '<div class="location-popup">',
-            '<h3>' + loc.name + '</h3>',
+            '<h2>' + loc.name + '</h2>',
             '<ul class="bxslider popup">',
                 contentTags.join("\n"),
             '</ul>',

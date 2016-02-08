@@ -5,6 +5,7 @@ json.locations do
     json.longitude location.longitude
     json.orderedContent location.ordered_content do |content|
       if content.is_a?(Post)
+        json.title content.title
         if content.body.length > 180
           json.body content.body[0..180] + '... (<span class="link">Read More</span>)'
         else
