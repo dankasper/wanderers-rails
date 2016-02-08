@@ -19,7 +19,9 @@ var addMarkers = function(map, locations) {
         lastMarker = marker;
     });
     map.on('popupopen', function() {
-        $('.bxslider.popup').bxSlider({ 'adaptiveHeight': true });
+        if ( $('.bxslider.popup li').length > 1 ) {
+            $('.bxslider.popup').bxSlider({ 'adaptiveHeight': true });
+        }
     });
 };
 
