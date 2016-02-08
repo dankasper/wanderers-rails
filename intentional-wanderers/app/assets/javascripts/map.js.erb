@@ -19,7 +19,7 @@ var addMarkers = function(map, locations) {
         lastMarker = marker;
     });
     map.on('popupopen', function() {
-        $('.bxslider.popup').bxSlider();
+        $('.bxslider.popup').bxSlider({ 'adaptiveHeight': true });
     });
 };
 
