@@ -32,7 +32,7 @@ class Post < ActiveRecord::Base
         self.tags = (CSV.parse_line(tags) || []).map &:strip
       end
     else
-      tags = []
+      self.tags = []
     end
   end
 end
