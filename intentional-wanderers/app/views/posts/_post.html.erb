@@ -5,13 +5,16 @@
     <% post.photo_layouts.each do |layout| %>
       <%= positioned_photo_tag layout %>
     <% end %>
-    <%= content_tag :p, post.body.html_safe %>
+    <%= content_tag :div, post.body.html_safe, class: 'body' %>
     <div style="clear: both;"></div>
   </div>
   <div class="tags">
     Tags:
+    <% begin %>
     <% post.tags.each_with_index do |tag, i| %>
       <%= ', ' unless i == 0 %><%= link_to tag, tag_path(tag) %>
+    <% end %>
+    <% rescue %>
     <% end %>
   </div>
 </div>

@@ -1,6 +1,7 @@
 var setEditableElements = function() {
     $('.editable p').attr('contenteditable', 'true');
     $('.editable h2').attr('contenteditable', 'true');
+    $('.editable .body').attr('contenteditable', 'true');
 };
 
 $(document).ready(setEditableElements);
@@ -101,7 +102,7 @@ function savePost(method, url, published) {
         data: {
             'post': {
                 'title': $('.post-full-display h2').text(),
-                'body': $('.post-body-container p').html(),
+                'body': $('.post-body-container .body').html(),
                 'photo_layouts_attributes': $('.positioned-photo').get().map( function(photo) {
                     return {
                         'id': $(photo).attr('data-layout-id'),
