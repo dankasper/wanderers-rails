@@ -15,7 +15,7 @@ Location.prototype.postPopupContent = function(post) {
     }
     var postTag =
             '<a href="' + post.url + '">' +
-                '<p>' + post.body + '</p>' +
+                '<div class="body">' + post.body + '</div>' +
             '</a>';
     return ['<li>', photoTag, postTag, '</li>'].join("\n");
 };
