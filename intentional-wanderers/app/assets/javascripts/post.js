@@ -26,7 +26,12 @@ function storeInitialPhotoPosition(ev) {
 
 function calculateNewPhotoLayout(ev) {
     ev.preventDefault();
-    var container = $(ev.target).parents('.post-body-container');
+    var container;
+    if ($(ev.target).hasClass('post-body-container')) {
+        container = $(ev.target);
+    } else {
+        container = $(ev.target).parents('.post-body-container');
+    }
     var data = JSON.parse(ev.dataTransfer.getData('application/json'));
     var translateX = ev.clientX - data['initialClientX'];
     var translateY = ev.clientY - data['initialClientY'];
@@ -47,7 +52,7 @@ function calculateNewPhotoLayout(ev) {
         newAlignment = 'clear';
         newAlignmentStyle = 'float: left; width: 100%';
     }
-    container.prepend([
+    newPhotoElement = $([
         '<div class="positioned-photo" style="padding-top: ' + newPaddingTop + 'px; margin-bottom: -' + newPaddingTop + 'px;" data-alignment="' + newAlignment + '" data-offset-top="' + newPaddingTop + '" data-photo-id="' + data['photoId'] + '" data-layout-id="' + data['layoutId'] +'">',
             '<div style="' + newAlignmentStyle + '">',
                 '<div style="margin: auto; width: ' + data['initialWidth'] + 'px; height: ' + data['initialHeight'] + 'px;">',
@@ -56,7 +61,18 @@ function calculateNewPhotoLayout(ev) {
             '</div>',
         '</div>'
     ].join(""));
-    $('.editable img').resizable({ aspectRatio: true });
+    var precedingPhotoElement;
+    container.find('.positioned-photo').each(function() {
+        if ($(this).attr('data-offset-top') < newPaddingTop) {
+            precedingPhotoElement = $(this);
+        }
+    });
+    if (precedingPhotoElement) {
+        newPhotoElement.insertAfter(precedingPhotoElement);
+    } else {
+        container.prepend(newPhotoElement);
+    }
+    newPhotoElement.find("img").resizable({ aspectRatio: true });
 }
 
 function destroyOriginalPhoto(ev) {
@@ -86,7 +102,7 @@ $(document).on('page:load', configureDraggablePhotos);
 
 function addToPost(photo) {
     $('.post-body-container').prepend([
-        '<div class="positioned-photo" style="padding-top: 0px; margin-bottom: 0px;" data-alignment="left" data-offset-top="0" data-photo-id="' + $(photo).attr('data-photo-id') + '" data-layout-id="">',
+        '<div class="positioned-photo" style="padding-top: 0px; margin-bottom: 0px;" data-alignment="left" data-offset-top="0" data-photo-id="' + $(photo).attr('data-photo-id') + '">',
             '<div style="float: left;">',
                 '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + $(photo).attr('src') + '" alt="' + $(photo).attr('alt') + '" style="margin: auto; height: ' + $(photo).height() + 'px; width: ' + $(photo).width() + 'px;"></img>',
             '</div>',
