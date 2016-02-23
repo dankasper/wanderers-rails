@@ -10,6 +10,12 @@ class Location < ActiveRecord::Base
   end
 
   def ordered_content
-    (posts + photos).sort_by { |content| content.created_at }.reverse
+    (posts + standalone_photos).sort_by { |content| content.created_at }.reverse
+  end
+
+  def standalone_photos
+    photos.reject do |photo|
+      posts.any? { |post| post.photos.include? photo }
+    end
   end
 end
