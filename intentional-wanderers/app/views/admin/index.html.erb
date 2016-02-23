@@ -9,5 +9,7 @@
   <h2>Photos</h2>
   <%= link_to 'New Photo', new_photo_path %>
   <h3>Unpublished Photos</h3>
-  <%= render Photo.pending %>
+  <% Photo.pending.each do |photo| %>
+    <%= render partial: 'photos/thumb', locals: { photo: photo } %>
+  <% end %> 
 </div>
