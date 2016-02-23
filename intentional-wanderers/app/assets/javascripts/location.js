@@ -6,7 +6,8 @@ function Location(name, latitude, longitude, orderedContent) {
 }
 
 Location.prototype.postPopupContent = function(post) {
-    var photoTag = "<h3>" + post.title + "</h3>";
+    var titleTag = "<h3>" + post.title + "</h3>";
+    var photoTag;
     if (post['photos'] && post['photos'].length > 0) {
         photoTag =
             '<a href="' + post.url + '">' +
@@ -17,7 +18,7 @@ Location.prototype.postPopupContent = function(post) {
             '<a href="' + post.url + '">' +
                 '<div class="body">' + post.body + '</div>' +
             '</a>';
-    return ['<li>', photoTag, postTag, '</li>'].join("\n");
+    return ['<li>', titleTag, photoTag, postTag, '</li>'].join("\n");
 };
 
 Location.prototype.photoPopupContent = function(photo) {
