@@ -14,11 +14,11 @@ json.locations do
         json.url post_path(content)
         json.photos content.photos do |photo|
           json.url photo_path(photo)
-          json.image photo.image.url
+          json.image photo.image.thumb('300x>').url
         end
         json.type 'post'
       elsif content.is_a?(Photo)
-        json.image content.image.url
+        json.image content.image.thumb('300x>').url
         json.url photo_path(content)
         json.caption content.caption
         json.type 'photo'
