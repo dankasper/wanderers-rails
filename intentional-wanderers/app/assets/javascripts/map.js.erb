@@ -7,16 +7,24 @@ var pinIcon = L.icon({
 
 var lastMarker;
 
+var addMarker = function(map, loc, offset) {
+    marker = L.marker([loc.latitude, loc.longitude + offset], {icon: pinIcon});
+    if (loc.orderedContent.length > 0) {
+        marker.bindPopup(loc.popupContent());
+    } else {
+        marker.bindPopup(loc.name);
+    }
+    marker.addTo(map);
+    if (offset == 0) {
+        lastMarker = marker;
+    }
+};
+
 var addMarkers = function(map, locations) {
     locations.forEach(function(loc) {
-        marker = L.marker([loc.latitude, loc.longitude], {icon: pinIcon});
-        if (loc.orderedContent.length > 0) {
-            marker.bindPopup(loc.popupContent());
-        } else {
-            marker.bindPopup(loc.name);
-        }
-        marker.addTo(map);
-        lastMarker = marker;
+        addMarker(map, loc, 0);
+        addMarker(map, loc, -360);
+        addMarker(map, loc, 360);
     });
     map.on('popupopen', function() {
         if ( $('.bxslider.popup li').length > 1 ) {
