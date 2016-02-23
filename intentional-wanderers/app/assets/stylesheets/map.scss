@@ -27,7 +27,9 @@
     margin: 0;
     padding: 6px;
     width: 100%;
-    color: black;
+    div {
+      color: black;
+    }
   }
   .link {
     color: #0078a8;
