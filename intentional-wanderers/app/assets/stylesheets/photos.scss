@@ -48,13 +48,13 @@
 
 #photo-slideshow {
   visibility: hidden;
-  position: absolute;
+  position: fixed;
   z-index: 5;
   top: 0px;
   left: 0px;
   width: 100vw;
-  height: 150vh;
-  padding: 8.5em 15% 35%;
+  height: 100vh;
+  padding: 10% 15%;
   background-color: rgba(0,0,0,0.5);
   .photo-full-display {
     background: none;
