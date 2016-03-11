@@ -4,12 +4,14 @@ module PostsHelper
       if photo_layout.align == 'clear'
         content_tag :div, { style: 'float: left; width: 100%;' } do
           content_tag :div, { style: "margin: auto; height: #{photo_layout.height}px; width: #{photo_layout.width}px;" } do
-            image_tag photo_layout.photo.image.url, style: "margin: auto; height: #{photo_layout.height}px; width: #{photo_layout.width}px;"
+            image_tag(photo_layout.photo.image.thumb('2000x>').url, style: "margin: auto; height: #{photo_layout.height}px; width: #{photo_layout.width}px;") +
+            content_tag(:p, photo_layout.photo.caption, style: 'margin: auto;')
           end
         end
       else
         content_tag :div, { style: "float: #{photo_layout.align}" } do
-          image_tag photo_layout.photo.image.url, style: "margin: auto; height: #{photo_layout.height}px; width: #{photo_layout.width}px"
+          image_tag(photo_layout.photo.image.thumb('2000x>').url, style: "margin: auto; height: #{photo_layout.height}px; width: #{photo_layout.width}px") +
+          content_tag(:p, photo_layout.photo.caption, style: 'margin: auto;')
         end
       end
     end
