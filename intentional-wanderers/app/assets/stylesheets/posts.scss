@@ -18,11 +18,12 @@
 .positioned-photo {
   div {
     display: block;
-    margin: 0.4em;
+    margin: 0.6em;
   }
   p {
     text-align: center;
     font-size: 0.8em;
+    margin: auto;
   }
 }
 
@@ -37,5 +38,11 @@
   img {
     resize: both;
     overflow: auto;
+  }
+  .positioned-photo {
+    /* Force half line spacing that will be included when contenteditable is false */
+    p {
+      margin: 0.5em auto 0px;
+    }
   }
 }

@@ -1,5 +1,6 @@
 var setEditableElements = function() {
     $('.editable p').attr('contenteditable', 'true');
+    $('.editable .positioned-photo p').attr('contenteditable', 'false');
     $('.editable h2').attr('contenteditable', 'true');
     $('.editable .body').attr('contenteditable', 'true');
 };
