@@ -21,7 +21,8 @@ function storeInitialPhotoPosition(ev) {
         'imageSrc': target.attr('src'),
         'imageAlt': target.attr('alt'),
         'photoId': target.parents('.positioned-photo').attr('data-photo-id'),
-        'layoutId': target.parents('.positioned-photo').attr('data-layout-id')
+        'layoutId': target.parents('.positioned-photo').attr('data-layout-id'),
+        'caption': target.parents('.positioned-photo').attr('data-caption')
     }));
 }
 
@@ -54,10 +55,11 @@ function calculateNewPhotoLayout(ev) {
         newAlignmentStyle = 'float: left; width: 100%';
     }
     newPhotoElement = $([
-        '<div class="positioned-photo" style="padding-top: ' + newPaddingTop + 'px; margin-bottom: -' + newPaddingTop + 'px;" data-alignment="' + newAlignment + '" data-offset-top="' + newPaddingTop + '" data-photo-id="' + data['photoId'] + '" data-layout-id="' + data['layoutId'] +'">',
+        '<div class="positioned-photo" style="padding-top: ' + newPaddingTop + 'px; margin-bottom: -' + newPaddingTop + 'px;" data-alignment="' + newAlignment + '" data-offset-top="' + newPaddingTop + '" data-photo-id="' + data['photoId'] + '" data-layout-id="' + data['layoutId'] +'" data-caption="' + data['caption'] + '">',
             '<div style="' + newAlignmentStyle + '">',
-                '<div style="margin: auto; width: ' + data['initialWidth'] + 'px; height: ' + data['initialHeight'] + 'px;">',
+                '<div style="margin: auto; width: ' + data['initialWidth'] + 'px;">',
     		    '<img draggable="true" ondragstart="storeInitialPhotoPosition(event)" ondragend="destroyOriginalPhoto(event)" src="' + data['imageSrc'] + '" alt="' + data['imageAlt'] + '" style="margin: auto; width:' + data['initialWidth'] + 'px; height: ' + data['initialHeight'] +'px;"></img>',
+                    '<p>' + data['caption'] + '</p>',
                 '</div>',
             '</div>',
         '</div>'
